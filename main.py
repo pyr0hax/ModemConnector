@@ -33,13 +33,15 @@ ser.writeTimeout = 0
 
 try:
     ser.isOpen()
+    ser.write('ats0=1\r\n'.encode('ascii'))
+    print('waiting for modem')
+    while True:
+        response = ser.readline()[6:].decode("ascii").strip()
+        print(response)
+        if response == 'RIER':
+            ser.write('OK\r\n'.encode('ascii'))
+            print(response)
+
 except Exception as e:
     print('Exception: Opening serial port: ' + str(e))
-while True:
-    print('waiting for modem')
-    ser.write('ats0=1\r\n'.encode('ascii'))
-    response = ser.readline().decode('ascii')
-    if response == 'RING':
-        ser.write('OK\r\n'.encode('ascii'))
-        if response == 'CONNECT':
-            ser.write('CONNECT\r\n'.encode('ascii'))
+    
