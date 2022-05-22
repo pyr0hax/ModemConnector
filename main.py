@@ -33,11 +33,10 @@ ser.dsrdtr = False
 ser.writeTimeout = 0
 
 ser.isOpen()
-ser.write('ats0=1\r\n'.encode('ascii'))
+ser.write('ats0=1\r\n'.encode())
 print('waiting for modem')
 while True:
-    response = ser.readline()[6:].decode("ascii").strip()
-    print(response)
+    response = ser.readline()[6:].decode().strip()
     if BAUDRATE in response:
-        ser.write('This is a POTS connector developed by Pyrodrake\r\n'.encode('ascii'))
+        ser.write('This is a TEST\r\n'.encode())
         continue
