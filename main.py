@@ -3,6 +3,7 @@
 import serial
 import configparser
 from datetime import datetime
+from telnetlib import Telnet
 
 date_time = datetime.now().strftime('%m/%d/%Y - %H:%M:%S')
 
@@ -31,17 +32,12 @@ ser.rtscts = False
 ser.dsrdtr = False
 ser.writeTimeout = 0
 
-try:
-    ser.isOpen()
-    ser.write('ats0=1\r\n'.encode('ascii'))
-    print('waiting for modem')
-    while True:
-        response = ser.readline()[6:].decode("ascii").strip()
-        print(response)
-        if response == 'RIER':
-            ser.write('OK\r\n'.encode('ascii'))
-            print(response)
-
-except Exception as e:
-    print('Exception: Opening serial port: ' + str(e))
-    
+ser.isOpen()
+ser.write('ats0=1\r\n'.encode('ascii'))
+print('waiting for modem')
+while True:
+    response = ser.readline()[6:].decode("ascii").strip()
+    print(response)
+    if BAUDRATE in response:
+        ser.write('This is a POTS connector developed by Pyrodrake\r\n'.encode('ascii'))
+        continue
