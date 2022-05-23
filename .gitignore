@@ -1423,3 +1423,6 @@ venv/Scripts/pyserial-miniterm.exe
 venv/Scripts/pyserial-ports.exe
 venv/Scripts/python.exe
 venv/Scripts/pythonw.exe
+__pycache__/telnetConnector.cpython-39.pyc
+cfg.ini
+logs.txt

@@ -3,6 +3,7 @@
 import serial
 import configparser
 from logger import lognow
+from telnetConnector import telnetconnector
 
 # import cfg.ini file
 # If import fails, creates template config for useage
@@ -12,8 +13,7 @@ try:
     SERIALPORT = parser.get('config', 'SERIALPORT')
     BAUDRATE = parser.get('config', 'BAUDRATE')
 except Exception as e:
-    with open('logs.txt', 'a') as f:
-        f.write(lognow() + str(e))
+    lognow(e)
     with open('cfg.ini', 'a') as f:
         f.write('''[config]
 SERIALPORT = COM2
@@ -42,7 +42,10 @@ def modemChatter():
         response = ser.readline()[6:].decode().strip() # stores response from Modem via Serial Port in a variable
         if BAUDRATE in response:
             ser.write('This is a TEST\r\n'.encode())
-            continue
+            telnetconnector()
+            
+
+
 
 # starts main function
 if __name__ == '__main__':
