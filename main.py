@@ -4,6 +4,8 @@ import serial
 import configparser
 from logger import lognow
 
+# import cfg.ini file
+# If import fails, creates template config for useage
 try:
     parser = configparser.ConfigParser()
     parser.read('cfg.ini')
@@ -18,6 +20,7 @@ SERIALPORT = COM2
 BAUDRATE = 1200''')
         raise e
 
+# Opens up serial communication with imported config. Change config if below code fails.
 def modemChatter():
     try:
         ser = serial.Serial(SERIALPORT, int(BAUDRATE))
@@ -33,13 +36,14 @@ def modemChatter():
     except Exception as e:
         lognow(e)
         raise e
-    ser.write('ats0=1\r\n'.encode())
+    ser.write('ats0=3\r\n'.encode()) # Tells modem to auto-answer after 3 rings
     print('waiting for modem')
     while True:
-        response = ser.readline()[6:].decode().strip()
+        response = ser.readline()[6:].decode().strip() # stores response from Modem via Serial Port in a variable
         if BAUDRATE in response:
             ser.write('This is a TEST\r\n'.encode())
             continue
 
+# starts main function
 if __name__ == '__main__':
     modemChatter()
