@@ -1,8 +1,23 @@
 import getpass
 import telnetlib
+import configparser
+from logger import lognow
+
+try:
+    parser = configparser.ConfigParser()
+    parser.read('cfg.ini')
+    HOST = parser.get('telnetconf', 'HOST')
+    PORT = parser.get('telnetconf', 'PORT')
+except Exception as e:
+    lognow(e)
+    with open('cfg.ini', 'a') as f:
+        f.write('''\n[telnetconf]
+HOST = bbs.vcgsa.co.za
+PORT = 23''')
+        raise e
 
 def telnetconnector():
-    hostname = "bbs.vcgsa.co.za"
+    hostname = HOST, PORT
     user = input("Enter your remote account: ")
     password = getpass.getpass()
     tn = telnetlib.Telnet(hostname)

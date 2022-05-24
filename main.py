@@ -10,14 +10,14 @@ from telnetConnector import telnetconnector
 try:
     parser = configparser.ConfigParser()
     parser.read('cfg.ini')
-    SERIALPORT = parser.get('config', 'SERIALPORT')
-    BAUDRATE = parser.get('config', 'BAUDRATE')
+    SERIALPORT = parser.get('telnetconf', 'SERIALPORT')
+    BAUDRATE = parser.get('telnetconf', 'BAUDRATE')
 except Exception as e:
     lognow(e)
     with open('cfg.ini', 'a') as f:
-        f.write('''[config]
+        f.write('''[serialconf]
 SERIALPORT = COM2
-BAUDRATE = 1200''')
+BAUDRATE = 1200\n''')
         raise e
 
 # Opens up serial communication with imported config. Change config if below code fails.
@@ -44,8 +44,6 @@ def modemChatter():
             ser.write('This is a TEST\r\n'.encode())
             telnetconnector()
             
-
-
 
 # starts main function
 if __name__ == '__main__':

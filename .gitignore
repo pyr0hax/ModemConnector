@@ -1426,3 +1426,5 @@ venv/Scripts/pythonw.exe
 __pycache__/telnetConnector.cpython-39.pyc
 cfg.ini
 logs.txt
+__pycache__/logger.cpython-310.pyc
+__pycache__/telnetConnector.cpython-310.pyc
