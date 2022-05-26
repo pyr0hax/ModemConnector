@@ -18,7 +18,7 @@ except Exception as e:
 SERIALPORT = COM2
 BAUDRATE = 1200\n''')
         raise e
-cmd = "ATS0=2\r"
+cmd = "ATS0=2\r" # Tells modem to auto-answer after 2 rings
 # Opens up serial communication with imported config. Change config if below code fails.
 def modemChatter():
     try:
@@ -35,7 +35,7 @@ def modemChatter():
     except Exception as e:
         lognow(e)
         raise e
-    ser.write(cmd.encode()) # Tells modem to auto-answer after 3 rings
+    ser.write(cmd.encode()) 
     print('waiting for modem')
     while True:
         response = ser.readline()[6:].decode().strip() # stores response from Modem via Serial Port in a variable
