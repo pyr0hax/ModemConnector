@@ -43,7 +43,6 @@ def modemChatter():
             ser.write('''Welcome to Pyro BBS.\r
 This was written in Python by Jaco van Zyl\r
 Please note that this is just a test service\r\n'''.encode())
-
             
 # starts main function
 if __name__ == '__main__':
