@@ -18,7 +18,7 @@ except Exception as e:
 SERIALPORT = COM2
 BAUDRATE = 1200\n''')
         raise e
-cmd = "AT\r"
+cmd = "ATS0=2\r"
 # Opens up serial communication with imported config. Change config if below code fails.
 def modemChatter():
     try:
