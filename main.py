@@ -3,15 +3,14 @@
 import serial
 import configparser
 from logger import lognow
-from telnetConnector import telnetconnector
 
 # import cfg.ini file
 # If import fails, creates template config for useage
 try:
     parser = configparser.ConfigParser()
     parser.read('cfg.ini')
-    SERIALPORT = parser.get('telnetconf', 'SERIALPORT')
-    BAUDRATE = parser.get('telnetconf', 'BAUDRATE')
+    SERIALPORT = parser.get('serialconf', 'SERIALPORT')
+    BAUDRATE = parser.get('serialconf', 'BAUDRATE')
 except Exception as e:
     lognow(e)
     with open('cfg.ini', 'a') as f:
@@ -19,7 +18,7 @@ except Exception as e:
 SERIALPORT = COM2
 BAUDRATE = 1200\n''')
         raise e
-
+cmd = "AT\r"
 # Opens up serial communication with imported config. Change config if below code fails.
 def modemChatter():
     try:
@@ -36,15 +35,16 @@ def modemChatter():
     except Exception as e:
         lognow(e)
         raise e
-    ser.write('ats0=3\r\n'.encode()) # Tells modem to auto-answer after 3 rings
+    ser.write(cmd.encode()) # Tells modem to auto-answer after 3 rings
     print('waiting for modem')
     while True:
         response = ser.readline()[6:].decode().strip() # stores response from Modem via Serial Port in a variable
         if BAUDRATE in response:
-            ser.write('This is a TEST\r\n'.encode())
-            telnetconnector()
-            
+            ser.write('''Welcome to Pyro BBS.\r
+This was written in Python by Jaco van Zyl\r
+Please note that this is just a test service\r\n'''.encode())
 
+            
 # starts main function
 if __name__ == '__main__':
     modemChatter()

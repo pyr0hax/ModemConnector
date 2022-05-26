@@ -1428,3 +1428,4 @@ cfg.ini
 logs.txt
 __pycache__/logger.cpython-310.pyc
 __pycache__/telnetConnector.cpython-310.pyc
+__pycache__/main.cpython-310.pyc
